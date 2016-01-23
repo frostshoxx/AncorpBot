@@ -216,15 +216,16 @@ var commands = {
     "version": {
         description: "returns the git commit this bot is running",
         process: function(bot,msg,suffix) {
-            var commit = require('child_process').spawn('git', ['log','-n','1']);
-            commit.stdout.on('data', function(data) {
-                bot.sendMessage(msg.channel,data);
-            });
-            commit.on('close',function(code) {
-                if( code != 0){
-                    bot.sendMessage(msg.channel,"failed checking git version!");
-                }
-            });
+            //var commit = require('child_process').spawn('git', ['log','-n','1']);
+            //commit.stdout.on('data', function(data) {
+            //    bot.sendMessage(msg.channel,data);
+            //});
+            //commit.on('close',function(code) {
+            //    if( code != 0){
+            //        bot.sendMessage(msg.channel,"failed checking git version!");
+            //    }
+            //});
+			bot.sendMessage(msg.channel,"Same as yesterday!");
         }
     },
     "log": {
@@ -234,14 +235,16 @@ var commands = {
     },
     "wiki": {
         usage: "<search terms>",
-        description: "returns the summary of the first matching search result from Wikipedia",
+        description: "returns the summary of the first matching search result from UOAC Wiki",
         process: function(bot,msg,suffix) {
             var query = suffix;
             if(!query) {
                 bot.sendMessage(msg.channel,"usage: !wiki search terms");
                 return;
             }
-            var Wiki = require('wikijs');
+			var searchTerms = query.replace(" ", "+");
+			bot.sendMessage(msg.channel,"http://uoancorp.com/wiki/index.php?search="+searchTerms);
+            /* var Wiki = require('wikijs');
             new Wiki().search(query,1).then(function(data) {
                 new Wiki().page(data.results[0]).then(function(page) {
                     page.summary().then(function(summary) {
@@ -257,7 +260,37 @@ var commands = {
                 });
             },function(err){
                 bot.sendMessage(msg.channel,err);
-            });
+            }); */
+        }
+    },
+	    "hue": {
+        usage: "<search terms>",
+        description: "returns the link to hue look up",
+        process: function(bot,msg,suffix) {
+            var query = suffix;
+            if(!query) {
+                bot.sendMessage(msg.channel,"usage: !hue colorcode");
+                return;
+            }
+			var searchTerms = query;
+			bot.sendMessage(msg.channel,"http://my.uoancorp.com/hue.php?hue="+searchTerms);
+            /* var Wiki = require('wikijs');
+            new Wiki().search(query,1).then(function(data) {
+                new Wiki().page(data.results[0]).then(function(page) {
+                    page.summary().then(function(summary) {
+                        var sumText = summary.toString().split('\n');
+                        var continuation = function() {
+                            var paragraph = sumText.shift();
+                            if(paragraph){
+                                bot.sendMessage(msg.channel,paragraph,continuation);
+                            }
+                        };
+                        continuation();
+                    });
+                });
+            },function(err){
+                bot.sendMessage(msg.channel,err);
+            }); */
         }
     },
     "join-server": {
