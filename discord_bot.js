@@ -265,7 +265,7 @@ var commands = {
 		}
 	},
 	"hue": {
-		usage: "<search terms>",
+		usage: "<hue color code>",
 		description: "returns the link to hue look up",
 		process: function (bot, msg, suffix) {
 			var query = suffix;
