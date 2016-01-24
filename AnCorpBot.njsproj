@@ -31,6 +31,7 @@
     <Compile Include="plugins\Images\images.js" />
     <Content Include="plugins\Moderation\package.json" />
     <Compile Include="plugins\Moderation\moderation.js" />
+    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="build" />
